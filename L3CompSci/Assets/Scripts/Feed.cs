@@ -16,6 +16,10 @@ public class Feed : MonoBehaviour
         sL.Add(Story);
         sL.Add(Story2);
         sL.Add(Story3);
+
+        sL[1].GetComponent<Animator>().SetBool("s1>2", true);
+        sL[2].GetComponent<Animator>().SetBool("s1>2", true);
+        sL[2].GetComponent<Animator>().SetBool("s2>3", true);
     }
 
     void Update()
@@ -28,7 +32,7 @@ public class Feed : MonoBehaviour
 
     void Scroll()
     {
-        sL[0].GetComponent<Animator>().SetTrigger("Move1");
-        sL[1].GetComponent<Animator>().SetTrigger("Move1");
+        sL[0].GetComponent<Animator>().SetBool("s1>2", true);
+        sL[1].GetComponent<Animator>().SetBool("s2>3", true);
     }
 }
