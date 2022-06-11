@@ -4,44 +4,11 @@ using UnityEngine;
 
 public class Topic : MonoBehaviour
 {
-    bool dataShown = false;
+    public string details;
 
-    void Start()
-    {
-        foreach (SpriteRenderer s in GetComponentsInChildren<SpriteRenderer>())
-        {
-            s.enabled = false;
-            dataShown = false;
-        }
-        this.GetComponent<SpriteRenderer>().enabled = true;
-        GetComponentInChildren<MeshRenderer>().enabled = false;
-    }
     private void OnMouseDown()
     {
-        if (dataShown)
-        {
-            foreach (SpriteRenderer s in GetComponentsInChildren<SpriteRenderer>())
-            {
-                s.enabled = false;
-                dataShown = false;
-            }
-            this.GetComponent<SpriteRenderer>().enabled = true;
-            GetComponentInChildren<MeshRenderer>().enabled = false;
-        }
-        else 
-        {
-            foreach (SpriteRenderer s in GetComponentsInChildren<SpriteRenderer>())
-            {
-                s.enabled = true;
-                dataShown = true;
-            }
-            GetComponentInChildren<MeshRenderer>().enabled = true;
-        }
+        GetComponentInParent<TopicsManager>().Click(this);
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
