@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Feed : MonoBehaviour
 {
-
     public GameObject Story;
     public GameObject Story2;
     public GameObject Story3;
@@ -14,17 +13,18 @@ public class Feed : MonoBehaviour
 
     void Start()
     {
-        NewStory(true);
         sL.Add(Story);
         sL.Add(Story2);
         sL.Add(Story3);
+        NewStory(true);
 
-        sL[0].GetComponent<Animator>().SetBool("s0>1", true);
         sL[1].GetComponent<Animator>().SetBool("s0>1", true);
         sL[2].GetComponent<Animator>().SetBool("s0>1", true);
-        sL[1].GetComponent<Animator>().SetBool("s1>2", true);
+        sL[3].GetComponent<Animator>().SetBool("s0>1", true);
         sL[2].GetComponent<Animator>().SetBool("s1>2", true);
-        sL[2].GetComponent<Animator>().SetBool("s2>3", true);
+        sL[3].GetComponent<Animator>().SetBool("s1>2", true);
+        sL[3].GetComponent<Animator>().SetBool("s2>3", true);
+
     }
 
     void Update()
@@ -32,6 +32,24 @@ public class Feed : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Z))
         {
             Scroll();
+        }
+
+        if (Input.GetKeyDown(KeyCode.X))
+        {
+            Like();
+        }
+    }
+
+    void Like()
+    {
+        // 'like' the current main story
+        foreach (SpriteRenderer r in sL[2].GetComponentsInChildren<SpriteRenderer>())
+        {
+            if (r.gameObject.name == "LikeBtn")
+            {
+                r.color = new Color(0.70980392156f, 0.19607843137f, 0.14901960784f);
+                return;
+            }
         }
     }
 
@@ -69,7 +87,7 @@ public class Feed : MonoBehaviour
             sL[0] = Instantiate(StoryP, GetComponentInParent<Transform>());
         }
 
-        sL[index].transform.localScale = new Vector3(240, 280, 0);
+        sL[index].transform.localScale = new Vector3(60, 70, 0);
         sL[index].transform.position = new Vector3(6.4f, 12.25f, 0);
     }
 }
