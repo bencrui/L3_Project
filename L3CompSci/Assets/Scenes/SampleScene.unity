@@ -255,6 +255,7 @@ GameObject:
   - component: {fileID: 7123634}
   - component: {fileID: 7123633}
   - component: {fileID: 7123631}
+  - component: {fileID: 7123635}
   m_Layer: 5
   m_Name: BG
   m_TagString: Untagged
@@ -295,7 +296,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -25.55716, y: 1.8534851}
+  m_Offset: {x: -126.83792, y: 0.4369812}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -306,7 +307,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 795.4062, y: 489.18744}
+  m_Size: {x: 805.32184, y: 537.34894}
   m_EdgeRadius: 0
 --- !u!114 &7123633
 MonoBehaviour:
@@ -346,6 +347,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7123629}
   m_CullTransparentMesh: 1
+--- !u!114 &7123635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7123629}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfaeacc3d400bd846937c90134cd5a3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m: {fileID: 586887314}
 --- !u!4 &21164860 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6826555240372227631, guid: 626c8ec4a6087dc40b0d442308e586f1, type: 3}
@@ -1325,6 +1339,7 @@ MonoBehaviour:
   TopicData: []
   visible: 0
   detailsTab: {fileID: 3214374}
+  startedDragging: 0
 --- !u!4 &620070642 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6826555240372227631, guid: 626c8ec4a6087dc40b0d442308e586f1, type: 3}

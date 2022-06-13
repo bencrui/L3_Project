@@ -5,6 +5,7 @@ using UnityEngine;
 public class Btn : MonoBehaviour
 {
     public TopicsManager m;
+    
     private void OnMouseDown()
     {
         m.BtnClick();

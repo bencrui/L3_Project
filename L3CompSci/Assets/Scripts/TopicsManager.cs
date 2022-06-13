@@ -13,6 +13,10 @@ public class TopicsManager : MonoBehaviour
     Topic topicShown;
 
     public GameObject detailsTab;
+    Vector3 mpi;
+    Vector3 gpi;
+
+    public bool startedDragging = false;
 
     void Start()
     {
@@ -50,6 +54,17 @@ public class TopicsManager : MonoBehaviour
     public void BtnClick()
     {
         topicShown.Buy(dg.Codes(topicShown.ID));
+    }
+
+    public void Dragging()
+    {
+        if (!startedDragging)
+        {
+            Debug.Log("starting");
+            gpi = transform.position;
+            mpi = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        }
+        transform.position = gpi + Camera.main.ScreenToWorldPoint(Input.mousePosition) - mpi;
     }
 
     private void Alter(string[] details)
