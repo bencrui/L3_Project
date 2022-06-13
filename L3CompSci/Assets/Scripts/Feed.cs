@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class Feed : MonoBehaviour
 {
+    public DataGate dg;
+
+    public List<string> storyStock = new List<string>(10);
+
     public GameObject Story;
     public GameObject Story2;
     public GameObject Story3;
@@ -13,11 +17,15 @@ public class Feed : MonoBehaviour
 
     void Start()
     {
+        // The game will start at the 'loading' sequence of the social media, and so the player will input the first 3 or so stories, but for now....
+        storyStock.Add("Title/Description/Comments");
+
+        // set up all of the initial stories. Currently these are basic.
         sL.Add(Story);
         sL.Add(Story2);
         sL.Add(Story3);
         NewStory(true);
-
+        // move initial stories to positions
         sL[1].GetComponent<Animator>().SetBool("s0>1", true);
         sL[2].GetComponent<Animator>().SetBool("s0>1", true);
         sL[3].GetComponent<Animator>().SetBool("s0>1", true);
@@ -29,6 +37,7 @@ public class Feed : MonoBehaviour
 
     void Update()
     {
+        //manual input for testing
         if (Input.GetKeyDown(KeyCode.Z))
         {
             Scroll();
@@ -55,7 +64,13 @@ public class Feed : MonoBehaviour
 
     void Scroll()
     {
-        for (int i = 0; i < 4; i++)
+        if (storyStock.Count == 0)
+        {
+            Debug.Log("Story Stock empty. You Lose.");
+            return;
+        }
+
+        for (int i = 0; i < 4; i++) // animation
         {
             sL[i].GetComponent<Animator>().SetBool("s"+(i)+">"+(i+1), true);
         }
@@ -70,6 +85,12 @@ public class Feed : MonoBehaviour
         }
 
         NewStory(false);
+
+        for (int i = 0; i < storyStock.Count - 2; i++)
+        {
+            storyStock[i] = storyStock[1 + i];
+        }
+        storyStock.RemoveAt(storyStock.Count - 1);
     }
 
     void NewStory(bool starting)
@@ -81,11 +102,7 @@ public class Feed : MonoBehaviour
             index = sL.Count;
             sL.Add(Instantiate(StoryP, GetComponentInParent<Transform>()));
         }
-        else
-        {
-            index = 0;
-            sL[0] = Instantiate(StoryP, GetComponentInParent<Transform>());
-        }
+        else  sL[0] = Instantiate(StoryP, GetComponentInParent<Transform>());
 
         sL[index].transform.localScale = new Vector3(60, 70, 0);
         sL[index].transform.position = new Vector3(6.4f, 12.25f, 0);

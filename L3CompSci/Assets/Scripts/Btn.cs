@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Btn : MonoBehaviour
 {
+    public TopicsManager m;
     private void OnMouseDown()
     {
-        GetComponentInParent<TopicsManager>().BtnClick();
+        m.BtnClick();
     }
 }

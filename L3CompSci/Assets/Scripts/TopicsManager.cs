@@ -4,27 +4,44 @@ using UnityEngine;
 
 public class TopicsManager : MonoBehaviour
 {
+    public DataGate dg;
+
+    public string[] TopicData;
+    Topic[] Topics = new Topic[30]; //change to array when topics are finished
+
     public bool visible;
     Topic topicShown;
-    public Animator anim;
+
+    public GameObject detailsTab;
+
+    void Start()
+    {
+        int index = 0;
+        foreach (Topic t in GetComponentsInChildren<Topic>())
+        {
+            Topics[index] = t;
+            t.ID = index;
+            index++;
+        }
+    }
 
     public void Click(Topic t)
     {
         if (visible && t == topicShown)
         {
             visible = false;
-            anim.SetTrigger("UnClicked");
+            detailsTab.GetComponent<Animator>().SetTrigger("UnClicked");
             Debug.Log("Hide Info");
         }
         else if (visible && t != topicShown)
         {
             //update details
-            Debug.Log("Update Info");
+            Alter(dg.SkillDetails(t.ID));
         }
         else
         {
             visible = true;
-            anim.SetTrigger("Clicked");
+            detailsTab.GetComponent<Animator>().SetTrigger("Clicked");
             Debug.Log("Show Info");
         }
         topicShown = t;
@@ -32,6 +49,13 @@ public class TopicsManager : MonoBehaviour
 
     public void BtnClick()
     {
-        topicShown.Buy();
+        topicShown.Buy(dg.Codes(topicShown.ID));
+    }
+
+    private void Alter(string[] details)
+    {
+        TextMesh[] t = detailsTab.GetComponentsInChildren<TextMesh>();
+        t[1].text = details[0];
+        t[2].text = details[1];
     }
 }

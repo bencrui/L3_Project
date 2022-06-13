@@ -5,33 +5,44 @@ using UnityEngine;
 public class Topic : MonoBehaviour
 {
     public Feed f;
-    public string details;
     public List<Topic> unlockingTopics = new List<Topic>();
     public bool Unlocked = false;
     public bool Locking = true;
     public int Bought;
     public int Multiplier;
     public int Price;
+    public int ID;
+
+    public char[] Details;
 
     private void OnMouseDown()
     {
         GetComponentInParent<TopicsManager>().Click(this);
     }
 
-    public void Buy()
+    public void Buy(string details)
     {
         if (Unlocked)
         {
-            Debug.Log("Buying Now!");
-            Bought++;
-            if (Locking)
+            if (f.storyStock.Count <= 10)
             {
-                Locking = false;
-                foreach (Topic e in unlockingTopics)
+                Bought += 1;
+                Debug.Log("Bought!");
+                f.storyStock.Add(details);
+
+                if (Locking)
                 {
-                    e.Unlocked = true;
+                    Locking = false;
+                    foreach (Topic t in unlockingTopics)
+                    {
+                        t.Unlocked = true;
+                    }
+                    Debug.Log("Unlocking!");
                 }
-                Debug.Log("Unlocking!");
+            }
+            else
+            {
+                Debug.Log("STOCK IS FULL");
             }
         }
         else

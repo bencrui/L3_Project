@@ -7,28 +7,33 @@ using MySql.Data.MySqlClient;
 
 public class DataGate : MonoBehaviour
 {
-    string connectionString = null;
-
-    MySqlConnection cnn;
+    string readFFP = Application.streamingAssetsPath + "/SaveFile.txt";
+    string readFFD = Application.streamingAssetsPath + "/GameData.txt";
+    string[] codes;
 
     void Start()
     {
-        connectionString = "server=localhost;database=Database1;uid=root;pwd=abc123;";
-        cnn = new MySqlConnection(connectionString);
-        cnn.Open();
-
-        FeedDetails();
+        string[] details = File.ReadAllText(readFFD).Split('/');
+        codes = details[0].Split('~');
+        string[] pFileLines = File.ReadAllLines(readFFP);
+        // don't forget about the default player file for the <new player>
     }
-    public ArrayList FeedDetails()
+
+    public string[] Open()
     {
-        ArrayList details = new ArrayList();
+        return File.ReadAllLines(readFFP);
+    }
 
-        string sql = "SELECT Description FROM TSkill WHERE Description LIKE 'Description 2';";
-        var cmd = new MySqlCommand(sql, cnn);
-        Debug.Log(cmd.ExecuteScalar().ToString());
+    public string Codes(int n)
+    {
+        return codes[n];
+    }
 
-
-        return details;
+    public string[] SkillDetails(int n)
+    {
+        string[] details1 = File.ReadAllText(readFFD).Split('|');
+        string[] details2 = details1[1].Split('~');
+        return details2[n].Split('/');
     }
 
     public void Save(string[] file)
