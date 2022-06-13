@@ -29,4 +29,9 @@ public class TopicsManager : MonoBehaviour
         }
         topicShown = t;
     }
+
+    public void BtnClick()
+    {
+        topicShown.Buy();
+    }
 }
