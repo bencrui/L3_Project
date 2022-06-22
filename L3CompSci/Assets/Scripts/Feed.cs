@@ -15,8 +15,16 @@ public class Feed : MonoBehaviour
 
     public List<GameObject> sL = new List<GameObject>();
 
+    public RectTransform[] t;
+
+    float h = Screen.height;
+    float H = 0;
+    int i = 0;
+
     void Start()
     {
+        t = GetComponentsInChildren<RectTransform>();
+
         // The game will start at the 'loading' sequence of the social media, and so the player will input the first 3 or so stories, but for now....
         storyStock.Add("Title/Description/Comments");
 
@@ -37,6 +45,19 @@ public class Feed : MonoBehaviour
 
     void Update()
     {
+        h = Screen.height;
+        if (H != h)
+        {
+            for (int n = 10; n < t.Length; n += 2)
+            {
+                t[n].localScale = new Vector3(h / 10, h / 10, 1);
+                t[n].position = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width - 240 - (h/20), h - (h / 20) - (h * i) / 10, 100));
+                i++;
+            }
+            i = 0;
+            H = h;
+        }
+        
         //manual input for testing
         if (Input.GetKeyDown(KeyCode.Z))
         {

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class TopicsManager : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class TopicsManager : MonoBehaviour
     public bool visible;
     Topic topicShown;
 
+    public Sprite[] topicType;
     public GameObject detailsTab;
     Vector3 mpi;
     Vector3 gpi;
@@ -33,9 +35,9 @@ public class TopicsManager : MonoBehaviour
     {
         if (visible && t == topicShown)
         {
+            //hide details
             visible = false;
             detailsTab.GetComponent<Animator>().SetTrigger("UnClicked");
-            Debug.Log("Hide Info");
         }
         else if (visible && t != topicShown)
         {
@@ -44,9 +46,10 @@ public class TopicsManager : MonoBehaviour
         }
         else
         {
+            //show details
+            Alter(dg.SkillDetails(t.ID));
             visible = true;
             detailsTab.GetComponent<Animator>().SetTrigger("Clicked");
-            Debug.Log("Show Info");
         }
         topicShown = t;
     }
@@ -60,7 +63,6 @@ public class TopicsManager : MonoBehaviour
     {
         if (!startedDragging)
         {
-            Debug.Log("starting");
             gpi = transform.position;
             mpi = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         }
@@ -69,8 +71,9 @@ public class TopicsManager : MonoBehaviour
 
     private void Alter(string[] details)
     {
-        TextMesh[] t = detailsTab.GetComponentsInChildren<TextMesh>();
-        t[1].text = details[0];
-        t[2].text = details[1];
+        TextMeshPro[] t = detailsTab.GetComponentsInChildren<TextMeshPro>();
+        Debug.Log(t[0].text);
+        t[0].text = details[0];
+        t[1].text = details[1];
     }
 }

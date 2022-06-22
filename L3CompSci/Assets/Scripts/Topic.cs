@@ -36,6 +36,7 @@ public class Topic : MonoBehaviour
                     foreach (Topic t in unlockingTopics)
                     {
                         t.Unlocked = true;
+                        t.GetComponent<SpriteRenderer>().sprite = GetComponentInParent<TopicsManager>().topicType[0];
                     }
                     Debug.Log("Unlocking!");
                 }
