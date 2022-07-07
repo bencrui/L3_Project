@@ -7,6 +7,7 @@ public class Feed : MonoBehaviour
     public DataGate dg;
 
     public List<string> storyStock = new List<string>(10);
+    public Manager m;
 
     public GameObject Story;
     public GameObject Story2;
@@ -26,7 +27,7 @@ public class Feed : MonoBehaviour
         t = GetComponentsInChildren<RectTransform>();
 
         // The game will start at the 'loading' sequence of the social media, and so the player will input the first 3 or so stories, but for now....
-        storyStock.Add("Title/Description/Comments");
+        storyStock.Add("0S1234");
 
         // set up all of the initial stories. Currently these are basic.
         sL.Add(Story);
@@ -40,7 +41,7 @@ public class Feed : MonoBehaviour
         sL[2].GetComponent<Animator>().SetBool("s1>2", true);
         sL[3].GetComponent<Animator>().SetBool("s1>2", true);
         sL[3].GetComponent<Animator>().SetBool("s2>3", true);
-
+        Manager();
     }
 
     void Update()
@@ -57,40 +58,45 @@ public class Feed : MonoBehaviour
             i = 0;
             H = h;
         }
-        
-        //manual input for testing
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            Scroll();
-        }
-
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            Like();
-        }
     }
 
-    void Like()
+    void Manager()
     {
-        // 'like' the current main story
-        foreach (SpriteRenderer r in sL[2].GetComponentsInChildren<SpriteRenderer>())
+        while (storyStock.Count >= 0)
         {
-            if (r.gameObject.name == "LikeBtn")
+            char[] code = storyStock[0].ToCharArray(); // format: 0S1234
+            foreach (char c in code)
             {
-                r.color = new Color(0.70980392156f, 0.19607843137f, 0.14901960784f);
-                return;
+                Debug.Log(c);
+            }
+            if ((m.M +2) > code[2])
+            {
+                Debug.Log("GOING");
+                Like(0, 0.5f);
             }
         }
+        Debug.Log("Story Stock empty. You Lose.");
     }
 
-    void Scroll()
+    void Like(int likes, float sTime)
     {
-        if (storyStock.Count == 0)
+        if (likes == 0)
         {
-            Debug.Log("Story Stock empty. You Lose.");
-            return;
+            foreach (SpriteRenderer r in sL[2].GetComponentsInChildren<SpriteRenderer>())
+            {
+                if (r.gameObject.name == "LikeBtn")
+                {
+                    r.color = new Color(0.70980392156f, 0.19607843137f, 0.14901960784f);
+                    return;
+                }
+            }
         }
+        Scroll(sTime);
+    }
 
+    IEnumerable Scroll(float sTime)
+    {
+        yield return new WaitForSeconds(sTime);
         for (int i = 0; i < 4; i++) // animation
         {
             sL[i].GetComponent<Animator>().SetBool("s"+(i)+">"+(i+1), true);

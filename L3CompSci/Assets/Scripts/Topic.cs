@@ -15,6 +15,10 @@ public class Topic : MonoBehaviour
 
     public char[] Details;
 
+    void Start()
+    {
+    }
+
     private void OnMouseDown()
     {
         GetComponentInParent<TopicsManager>().Click(this);
